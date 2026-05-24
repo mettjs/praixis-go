@@ -250,7 +250,7 @@ PRAIXIS_URL=http://localhost:8080 PRAIXIS_API_KEY=praixis_xxx go run ./_examples
 
 ```
 praixis-go/
-├── praixis.go          # top-level New() and Option types
+├── praixis.go          # New(), Ptr(), error helpers (APIError, IsGPUBusy, …), Option types
 ├── chat/
 │   ├── types.go        # Request, History, FileSummaryOptions, …
 │   ├── stream.go       # ChatStream, FileSummaryStream
@@ -263,3 +263,9 @@ praixis-go/
     ├── httpclient.go   # DoJSON, DoStream, DoMultipart, APIError, …
     └── stream.go       # StreamReader (metadata + token iterator)
 ```
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).
