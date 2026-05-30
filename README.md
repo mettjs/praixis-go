@@ -138,15 +138,16 @@ defer f.Close()
 resp, err := client.RAG.Upload(ctx,
     []rag.FileUpload{{Filename: "policy.pdf", Data: f}},
     &rag.UploadOptions{
-        CollectionName: "hr-docs",
-        ChunkSize:      praixis.Ptr(800),
-        ChunkOverlap:   praixis.Ptr(100),
+        CollectionName:   "hr-docs",
+        ChunkingStrategy: "semantic", // or "character" for fixed-size splits
+        ChunkSize:        praixis.Ptr(2000),
+        ChunkOverlap:     praixis.Ptr(150), // only used when ChunkingStrategy is "character"
     },
 )
 // resp.Succeeded, resp.Results[i].Status
 ```
 
-Pass `nil` for `UploadOptions` to use server defaults (collection `"main"`, chunk size 1000, overlap 150).
+Pass `nil` for `UploadOptions` to use server defaults (collection `"main"`, semantic chunking, chunk size 2000).
 
 ### Collections
 

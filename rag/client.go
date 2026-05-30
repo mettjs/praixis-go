@@ -39,7 +39,7 @@ func (c *Client) Ask(ctx context.Context, req QuestionRequest) (*AskStream, erro
 
 // Upload sends one or more files to a vector collection. The server processes
 // each file independently; check UploadResponse.Results for per-file status.
-// opts may be nil to use server defaults (collection "main", chunk size 1000, overlap 150).
+// opts may be nil to use server defaults (collection "main", semantic chunking, chunk size 2000).
 func (c *Client) Upload(ctx context.Context, files []FileUpload, opts *UploadOptions) (*UploadResponse, error) {
 	if len(files) == 0 {
 		return nil, fmt.Errorf("rag: at least one file is required")
@@ -48,6 +48,9 @@ func (c *Client) Upload(ctx context.Context, files []FileUpload, opts *UploadOpt
 	fields := make(map[string]string)
 	if opts != nil && opts.CollectionName != "" {
 		fields["collection_name"] = opts.CollectionName
+	}
+	if opts != nil && opts.ChunkingStrategy != "" {
+		fields["chunking_strategy"] = opts.ChunkingStrategy
 	}
 	if opts != nil && opts.ChunkSize != nil {
 		fields["chunk_size"] = strconv.Itoa(*opts.ChunkSize)

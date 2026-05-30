@@ -34,12 +34,13 @@ type FileUpload struct {
 }
 
 // UploadOptions are the optional form parameters for POST /rag-db/upload.
-// Nil pointer fields default to server values (CollectionName → "main",
-// ChunkSize → 1000, ChunkOverlap → 150).
+// Nil pointer fields default to server values (ChunkSize → 2000, ChunkOverlap → 150).
+// Empty string fields are omitted and the server applies its own defaults.
 type UploadOptions struct {
-	CollectionName string // default "main"
-	ChunkSize      *int   // 100–4000; nil → server default
-	ChunkOverlap   *int   // 0–500;   nil → server default
+	CollectionName   string // default "main"
+	ChunkingStrategy string // "semantic" (default) or "character"
+	ChunkSize        *int   // 100–4000; nil → server default (2000)
+	ChunkOverlap     *int   // 0–500;   nil → server default (150); only used when ChunkingStrategy is "character"
 }
 
 // UploadResult is the per-file outcome returned by Upload.
