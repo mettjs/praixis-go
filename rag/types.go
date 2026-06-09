@@ -41,6 +41,11 @@ type UploadOptions struct {
 	ChunkingStrategy string // "semantic" (default) or "character"
 	ChunkSize        *int   // 100–4000; nil → server default (2000)
 	ChunkOverlap     *int   // 0–500;   nil → server default (150); only used when ChunkingStrategy is "character"
+	// ImprovedSearch enables hypothetical-question indexing: questions are
+	// generated in the background after the upload returns (the document is
+	// searchable immediately; natural-language matching improves once generation
+	// finishes). Defaults to false.
+	ImprovedSearch bool
 }
 
 // UploadResult is the per-file outcome returned by Upload.

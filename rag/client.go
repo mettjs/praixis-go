@@ -58,6 +58,9 @@ func (c *Client) Upload(ctx context.Context, files []FileUpload, opts *UploadOpt
 	if opts != nil && opts.ChunkOverlap != nil {
 		fields["chunk_overlap"] = strconv.Itoa(*opts.ChunkOverlap)
 	}
+	if opts != nil && opts.ImprovedSearch {
+		fields["improved_search"] = "true"
+	}
 
 	attachments := make([]internal.FileAttachment, len(files))
 	for i, f := range files {

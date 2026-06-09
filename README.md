@@ -142,12 +142,15 @@ resp, err := client.RAG.Upload(ctx,
         ChunkingStrategy: "semantic", // or "character" for fixed-size splits
         ChunkSize:        praixis.Ptr(2000),
         ChunkOverlap:     praixis.Ptr(150), // only used when ChunkingStrategy is "character"
+        ImprovedSearch:   true,             // background hypothetical-question indexing for better natural-language search
     },
 )
 // resp.Succeeded, resp.Results[i].Status
 ```
 
 Pass `nil` for `UploadOptions` to use server defaults (collection `"main"`, semantic chunking, chunk size 2000).
+
+`ImprovedSearch` enables hypothetical-question indexing: questions are generated in the background after the upload returns, so the document is searchable immediately and natural-language matching improves once generation finishes.
 
 ### Collections
 
