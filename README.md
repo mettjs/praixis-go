@@ -202,6 +202,8 @@ case praixis.IsRateLimit(err):
     // 429 — slow down
 case praixis.IsUnauthorized(err):
     // 401/403 — check your API key
+case praixis.IsNotFound(err):
+    // 404 — collection, file, or session does not exist
 }
 ```
 

@@ -53,6 +53,12 @@ func IsUnauthorized(err error) bool {
 		(ae.StatusCode == http.StatusUnauthorized || ae.StatusCode == http.StatusForbidden)
 }
 
+// IsNotFound reports whether the error is a 404 Not Found.
+func IsNotFound(err error) bool {
+	var ae *APIError
+	return errors.As(err, &ae) && ae.StatusCode == http.StatusNotFound
+}
+
 // IsGPUBusy reports whether the error is a 503 GPU slots exhausted response.
 func IsGPUBusy(err error) bool {
 	var ae *APIError

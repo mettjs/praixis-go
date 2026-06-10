@@ -116,6 +116,18 @@ func TestIsUnauthorized(t *testing.T) {
 	}
 }
 
+func TestIsNotFound(t *testing.T) {
+	if !IsNotFound(&APIError{StatusCode: 404}) {
+		t.Error("expected IsNotFound true for 404")
+	}
+	if IsNotFound(&APIError{StatusCode: 403}) {
+		t.Error("expected IsNotFound false for 403")
+	}
+	if IsNotFound(nil) {
+		t.Error("expected IsNotFound false for nil")
+	}
+}
+
 func TestIsGPUBusy(t *testing.T) {
 	if !IsGPUBusy(&APIError{StatusCode: 503}) {
 		t.Error("expected IsGPUBusy true for 503")

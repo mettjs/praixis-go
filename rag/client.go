@@ -29,6 +29,8 @@ func New(cfg internal.Config, apiKey string) *Client {
 // Ask opens a streaming RAG question request. The returned AskStream must be
 // closed by the caller. SessionID, SearchQuery, and Sources are available
 // immediately after this call returns, before the first Next() call.
+// Returns a 404-wrapped APIError if the collection does not exist or the
+// metadata filter matches no content.
 func (c *Client) Ask(ctx context.Context, req QuestionRequest) (*AskStream, error) {
 	body, err := internal.DoStream(ctx, c.cfg, http.MethodPost, "/rag-db/ask", c.headers, req)
 	if err != nil {

@@ -36,7 +36,8 @@ func Ptr[T any](v T) *T { return &v }
 
 // APIError is returned for any non-2xx HTTP response. It carries the HTTP status
 // code and the server's error message. Use errors.As to extract it, or the
-// IsGPUBusy / IsRateLimit / IsUnauthorized helpers to test for common cases.
+// IsGPUBusy / IsRateLimit / IsUnauthorized / IsNotFound helpers to test for
+// common cases.
 type APIError = internal.APIError
 
 // IsGPUBusy reports whether err is a 503 response, meaning the server's GPU
@@ -49,6 +50,10 @@ func IsRateLimit(err error) bool { return internal.IsRateLimit(err) }
 // IsUnauthorized reports whether err is a 401 or 403 response, usually meaning
 // the API key is missing or invalid.
 func IsUnauthorized(err error) bool { return internal.IsUnauthorized(err) }
+
+// IsNotFound reports whether err is a 404 response — a collection, file, or
+// session that does not exist (or belongs to another app).
+func IsNotFound(err error) bool { return internal.IsNotFound(err) }
 
 // Client is the root Praixis SDK client. Access capabilities through the Chat
 // and RAG fields.
