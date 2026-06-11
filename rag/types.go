@@ -27,9 +27,14 @@ type QuestionRequest struct {
 }
 
 // FileUpload is one file to include in an Upload request.
+//
+// Filename is the server's primary format signal and the document's stored
+// identity, so prefer a .pdf/.docx/.txt extension. ContentType sets the
+// multipart part's MIME type, which the server uses as a fallback for
+// extension-less filenames; leave it empty to fill it from the extension.
 type FileUpload struct {
 	Filename    string    // original filename; used for Content-Disposition and stored in the collection
-	ContentType string    // MIME type; leave empty to auto-detect from extension
+	ContentType string    // MIME type sent on the part; empty fills it from the filename extension
 	Data        io.Reader // file content
 }
 

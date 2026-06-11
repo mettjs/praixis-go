@@ -150,6 +150,8 @@ resp, err := client.RAG.Upload(ctx,
 
 Pass `nil` for `UploadOptions` to use server defaults (collection `"main"`, semantic chunking, chunk size 2000).
 
+`Filename` is required — it is the document's stored identity and the server's primary format signal, so prefer a `.pdf`/`.docx`/`.txt` extension. For extension-less names the server falls back to the part's Content-Type (filled from the extension when `ContentType` is empty), then to the file's magic bytes.
+
 `ImprovedSearch` enables hypothetical-question indexing: questions are generated in the background after the upload returns, so the document is searchable immediately and natural-language matching improves once generation finishes.
 
 ### Collections
